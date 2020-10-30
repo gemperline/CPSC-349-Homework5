@@ -26,9 +26,11 @@
           strength: this.elements.strength.value
         };
         console.log(data);
-        fn(data);
-        this.reset();
-        this.elements[0].focus();
+        fn(data)
+          .then(function() {
+            this.reset();
+            this.elements[0].focus();
+          }.bind(this));
       });
     };
   }
@@ -37,7 +39,7 @@
     this.$formElement.on('input', '[name="emailAddress"]', function(event) {
       var emailAddress = event.target.value;
       if (fn(emailAddress)) {
-        event.target.setCustomValidity('someemail@gmail.com');
+        event.target.setCustomValidity('');
       } else {
         event.target.setCustomValidity(emailAddress + ' is not an authorized email address!');
       }
